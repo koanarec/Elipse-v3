@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import ast
 
 
+# This will take a string of a list (of a creature) and return its function as a string
 def peristring(small, big):
     answer = open("peri.txt", 'r')
     answer = answer.readline()
-    #answer = ast.literal_eval(answer)
     answer = eval(answer)
     a = answer
     lcv1 = 0
@@ -23,6 +23,9 @@ def peristring(small, big):
     form = form[:len(form) - 1]
     return (form)
 
+
+# This takes a formula as a string and then executes it. THe formula is for the perimiter of an elipse and
+# a and b are dimentions of the elipse. Peristring is just the formula
 def peri(peristring, a,b):
     newss = ""
     lcv = -1
@@ -44,6 +47,8 @@ def peri(peristring, a,b):
 def split(word):
     return [char for char in word]
 
+
+# Calculates the real value of the perimiter of an elipse
 def elipper(a, b):
     import math
     h = (a - b) ** 2 / (a + b) ** 2
@@ -64,12 +69,17 @@ def plot():
         b = 100
         x = x + 30
         a = x
+
+        # This is a formula for the perimiter of an elipse from history
         his.append((2 * math.pi * math.sqrt((a **2 + b ** 2)/2)))
         #his.append(((a-b)**2) / ((a+b) ** 2))
         peristrings = peristring(a, b)
         dog = peri(peristrings, a, b)
         print(dog)
+
+        #This is my estimation
         mine.append(dog)
+        
         real.append(elipper(a,b))
 
         plt.plot(real)

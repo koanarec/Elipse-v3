@@ -133,6 +133,8 @@ def print_graph(creatures):
     plt.clf()
 
 
+# This initalizes the loop and imports the best creature from before, it will generate new creatures if it cannot
+# import the old ones
 number_of_creatures = 16
 try:
     a = open('peri.txt', 'r')
@@ -145,12 +147,13 @@ except:
     b = []
     for x in seb:
         b.append(seb)
-
 creatures = []
 lcv = 32
 while lcv > 0:
     lcv = lcv - 1
     creatures.append(Creature(b))
+
+
 
 max_vals = []
 min_vals = []
@@ -160,19 +163,20 @@ while lcv < 10000000000000:
     lcv = lcv + 1
     creatures.sort()
 
+    # This saves the best animal in a text file
     save = open("peri.txt", "w")
     save.write(str(creatures[0].return_guts()))
     save.close()
 
     print_graph(creatures)
 
+
+    # This isn't very good. It chooses which creatures to kill, evolve and replicate
     best_quater = copy.deepcopy(creatures[:len(creatures) // 4])
     upper_quartile = copy.deepcopy(creatures[len(creatures) // 4:(len(creatures) // 4) * 2])
-
     creatures.clear()
     del creatures[:]
     creatures = []
-
     for x in best_quater:
         creatures.append(x)
         temp = copy.deepcopy(x)
@@ -184,6 +188,7 @@ while lcv < 10000000000000:
         temp.evolve()
         creatures.append(temp)
 
+    # This can reset the graph that you look at just to help read changes
     if keyboard.is_pressed('q'):
         max_vals = []
         min_vals = []
