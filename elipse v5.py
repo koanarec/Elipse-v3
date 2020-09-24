@@ -1,54 +1,45 @@
-#import random
 import matplotlib.pyplot as plt
 import copy
 import random
 import itertools
 import keyboard
 import ast
-import time
-import numpy
 
-def fixlist(a):
+
+def fix_list(list_to_fix):
     new = ""
-    final = ""
-    bb = copy.deepcopy(a)
+    bb = copy.deepcopy(list_to_fix)
     bb = bb.split()
-    for x in bb:
-        a_string = str(copy.deepcopy(x))
-        if a_string[len(a_string)-2:] == "]]":
-            a_string = str(eval(a_string[:len(a_string)-2]))+"]]"
-        elif a_string[len(a_string)-2:] == "],":
+    for part_of_string_of_list in bb:
+        a_string = str(copy.deepcopy(part_of_string_of_list))
+        if a_string[len(a_string) - 2:] == "]]":
+            a_string = str(eval(a_string[:len(a_string) - 2])) + "]]"
+        elif a_string[len(a_string) - 2:] == "],":
             a_string = str(eval(a_string[:len(a_string) - 2])) + "],"
         elif a_string[0] == "[" and a_string[1] == "[":
             a_string = "[[" + str(eval(a_string[2:len(a_string) - 1])) + ","
-        elif a_string[0] == "[" and a_string[len(a_string)-1] == ",":
+        elif a_string[0] == "[" and a_string[len(a_string) - 1] == ",":
             a_string = "[" + str(eval(a_string[1:len(a_string) - 1])) + ","
         else:
-            a_string = str(eval(a_string[:len(a_string)-1]))+","
+            a_string = str(eval(a_string[:len(a_string) - 1])) + ","
         new = new + a_string
+    return ast.literal_eval(new)
 
-    return(ast.literal_eval(new))
 
-#dfk = fixlist("[[0, 7, 1, -4, -3, -4, -4, 0, -3], [3, 0, 5, 2, 2, -1, -7, -3, -1], [0, 6, -5, -1, -7, 6, 4, 2, 5], \
-  #       [0, -1, 3, 7, -3, -1, -1, 0, 699], [-2, 3, 0, -2, 4, 3, -5, 6, 49], [3, 6-1, 5, 0, 6, -1, -89, 31, -1], \
-   #      [5, 4, -3, 8, 8, -6, -299, 5, 0], [0, -1, 3, 4, 31, 3, -5, 0, 0], [6, 9, -2, 5, 5392, -44, 0, 0, 0]]")
-
-#print(dfk)
-#breakpoint()
 def elipper(a, b):
     import math
     h = (a - b) ** 2 / (a + b) ** 2
     c = math.pi * (a + b)
-    x = 0
+    counter_for_infinite_series = 0
     tot = 1
-    while x < 10:
-        x = x + 1
-        tot = tot + (1 / 4 ** x) * h ** x
+    while counter_for_infinite_series < 10:
+        counter_for_infinite_series = counter_for_infinite_series + 1
+        tot = tot + (1 / 4 ** counter_for_infinite_series) * h ** counter_for_infinite_series
     return tot * c
 
 
 class Creature:
-    def __init__(self, guts=[]):
+    def __init__(self, guts):
         self.__guts = guts
 
     def return_fitness(self):
@@ -60,24 +51,20 @@ class Creature:
             guess = 0
             for x, y in itertools.product(range(0, len(self.__guts)), range(0, len(self.__guts))):
                 guess = guess + self.__guts[x][y] * 100 ** (x - (len(self.__guts)) // 2) * tests ** (
-                            y - (len(self.__guts)) // 2)
-            # print(-(abs(answer - guess)))
-            # print(answer, guess, ((abs(answer - guess))))
+                        y - (len(self.__guts)) // 2)
             finslist.append((abs(answer - guess)))
         totals = 0
         for x in finslist:
             totals += x
-        #print(-(totals // len(finslist)))
         return -(totals // len(finslist))
 
     def __lt__(self, other):
         return self.return_fitness() > other.return_fitness()
 
-    # for index, value in numpy.ndenumerate(self.__guts):
     def evolve(self):
-        save = open("temp.txt", "w")
-        save.write(str(creatures[0].return_guts()))
-        save.close()
+        saves = open("temp.txt", "w")
+        saves.write(str(creatures[0].return_guts()))
+        saves.close()
 
         a = open('temp.txt', 'r')
         b = a.readline()
@@ -85,9 +72,8 @@ class Creature:
         lcv = 0
         for x in b:
             adds = int(random.randint(-1, 1))
-            if x in "0123456789" and random.randint(0,100)>99 and adds != 0:
+            if x in "0123456789" and random.randint(0, 100) > 99 and adds != 0:
                 origonal = int(b[lcv])
-                # print(type(adds),type(origonal))
                 news = int(adds + origonal)
                 z = str(news)
 
@@ -105,11 +91,10 @@ class Creature:
             self.__guts = copy.deepcopy(ast.literal_eval(srr))
         except:
             try:
-                self.__guts = copy.deepcopy(fixlist(srr))
+                self.__guts = copy.deepcopy(fix_list(srr))
             except:
                 print("failed to update guts", str(srr))
         a.close()
-
 
     def __str__(self):
         return str(self.return_fitness())
@@ -144,9 +129,6 @@ def print_graph(creatures):
     plt.clf()
 
 
-
-
-
 number_of_creatures = 16
 try:
     a = open('peri.txt', 'r')
@@ -155,7 +137,7 @@ try:
     a.close()
 except:
     # 8 = 69
-    seb = [0, 0, 0, 0, 0,0,0,0,0, 0, 0, 0, 0]
+    seb = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     b = []
     for x in seb:
         b.append(seb)

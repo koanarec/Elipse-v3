@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 import ast
 
+
 def peristring(small, big):
     answer = open("peri.txt", 'r')
     answer = answer.readline()
