@@ -6,6 +6,8 @@ import keyboard
 import ast
 
 
+# This function takes a string representation of a list and then finds all of the elements that have not been calculated
+# for example; "1+1" will turn into 2. It returns a list
 def fix_list(list_to_fix):
     new = ""
     bb = copy.deepcopy(list_to_fix)
@@ -26,6 +28,7 @@ def fix_list(list_to_fix):
     return ast.literal_eval(new)
 
 
+# This function will return the real perimiter of an elipse
 def elipper(a, b):
     import math
     h = (a - b) ** 2 / (a + b) ** 2
@@ -38,6 +41,7 @@ def elipper(a, b):
     return tot * c
 
 
+# This class holds the each formula to calculate the perimeter and mess about with it
 class Creature:
     def __init__(self, guts):
         self.__guts = guts
