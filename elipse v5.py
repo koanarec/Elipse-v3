@@ -170,7 +170,7 @@ max_vals = []
 min_vals = []
 av_vals = []
 lcv = 0
-while lcv < 100000000000000:
+while lcv < 10000000000000:
     lcv = lcv + 1
     creatures.sort()
 
