@@ -15,8 +15,8 @@ In reality, row and collum have the length of the matrix divided by two subtract
 
 
 0 0 0
-0 5 0
-0 0 0
+0 5 0 \n
+0 0 0 \n
 
 Would be answer = 5 * width ^ 0 * height ^ 0
 
